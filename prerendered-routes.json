@@ -1,0 +1,8 @@
+{
+  "routes": [
+    "/",
+    "/about",
+    "/help-component",
+    "/privacyand-security"
+  ]
+}
