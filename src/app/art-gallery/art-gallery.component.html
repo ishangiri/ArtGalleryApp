@@ -1,0 +1,222 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Page</title>
+ 
+</head>
+<body>
+  <div class="container">
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+        <span class="fs-4" id="span"><strong>Art Gallery App</strong></span>
+      </a>
+
+      <ul class="nav nav-pills">
+        <li class="nav-item"><a routerLink="/" routerLinkActive="active" ariaCurrentWhenActive="page"  aria-current="page" class="nav-link active" >Home</a></li>
+        <li class="nav-item"><a routerLink="/about"  class="nav-link">About</a></li>
+        <li class="nav-item"><a routerLink="/privacyand-security" class="nav-link">Privacy and Security</a></li>
+        <li class="nav-item"><a routerLink="/help-component" class="nav-link">Help</a></li>
+      </ul>
+    </header>
+  </div>
+  <div id="search" [formGroup]="searchForm">
+    <input placeholder="Search Artist By ID🔍" type="number" formControlName="searchId">
+    <button class="btn btn-info" (click)="searchArtist()">SEARCH</button>
+  </div>
+  <div *ngIf="searchResult" class="tableDiv">
+    <table class="table table-bordered border-info" *ngIf="searchResult.length > 0">
+      <tr>
+        <th>ID#</th>
+        <th>Artist Name</th>
+        <th>DOB</th>
+        <th>Gender</th>
+        <th>Exhibition Date</th>
+        <th>ArtworkType</th>
+        <th>Special Notes</th>
+      </tr>
+      <tr *ngFor="let artist of searchResult">
+        <td>{{ artist.artistId }}</td>
+        <td>{{ artist.artistName }}</td>
+        <td>{{ artist.DOB }}</td>
+        <td>{{ artist.gender }}</td>
+        <td>{{ artist.exhibitionDate }}</td>
+        <td>{{ artist.artworkType }}</td>
+        <td>{{ artist.specialNotes }}</td>
+      </tr>
+    </table>
+  </div>
+  <div *ngIf="showError">
+  <div class="alert alert-warning error" *ngIf="searchResult.length === 0" role="alert">
+   <strong style="color: red;"> Artist with such ID  not found. </strong>
+  </div>
+  </div>
+ <div class = "add-form" *ngIf="!showForm">
+    <form [formGroup]="ArtistForm" id="form">
+    <label for="name">Name: </label>
+    <input id="name" type="text" formControlName="name">
+    <div *ngIf="ArtistForm.get('name')?.invalid && ArtistForm.get('name')?.touched">
+      <p style="color: red;"> Name is required.</p>
+      </div>
+    <label for="DOB">DOB: </label>
+    <input id="DOB" type="date" formControlName="DOB"> <br>
+    <div *ngIf="ArtistForm.get('DOB')?.invalid && ArtistForm.get('DOB')?.touched">
+      <p style="color: red;"> DOB is required.</p>
+      </div>
+    <label for="gender"> Gender: </label>
+    <select id="gender" type="text" formControlName="gender">
+      <option>Male</option>
+      <option>Female</option>
+      <option>Unspecified</option>
+      </select> 
+      <div *ngIf="ArtistForm.get('gender')?.invalid && ArtistForm.get('gender')?.touched">
+        <p style="color: red;"> Gender is required.</p>
+        </div>
+      <label for = "Exhibition Date">Exhibition Date: </label>
+      <input id="exhibitionDate" type="date" formControlName="exhibitionDate"><br>
+      <div *ngIf="ArtistForm.get('exhibitionDate')?.invalid && ArtistForm.get('exhibitionDate')?.touched">
+        <p style="color: red;">Exhibition Date is required.</p>
+        </div>
+      <label for = "ArtworkType">ArtworkType: </label>
+      <select id = "ArtworkType" formControlName="ArtworkType">
+      <option>Painting</option>
+      <option>Sculpture</option>
+      <option>Video Art</option>
+      <option>Digital Art</option>
+      <option>Photograph</option>
+      <option>Printmaking</option>
+      </select>
+      <div *ngIf="ArtistForm.get('ArtworkType')?.invalid && ArtistForm.get('ArtworkType')?.touched">
+        <p style="color: red;"> ArtworkType is required.</p>
+        </div>
+      <label for="SpecialNotes">Special Notes: (optional) </label>
+      <input id="notes" type="text" formControlName="Notes"><br>
+      <div class="featured-container">
+        <label for="Featured">Featured</label>
+        <input id="featured" type="checkbox" formControlName="Featured">
+      </div>
+      <button class="btn btn-success" type="button" (click)="addArtist()" [disabled]="!isFormValid()">Add Artist</button>
+      <div *ngIf="artistAddedSuccessfully">
+        <p style="color: green;">Artist added successfully!</p>
+    </div>
+    </form>
+</div>
+<div class="buttons">
+  <button class="btn btn-primary" (click)="display()">Display Artists</button>
+  <button class="btn btn-dark" (click)="displayFeatured()">Display Featured</button>
+
+</div>
+<div class = "tableDiv" *ngIf="showTable">
+  <h3>Artists</h3>
+<table class="table table-bordered border-primary">
+  <tr>
+    <th>ID#</th>
+    <th>Artist Name</th>
+    <th>DOB</th>
+    <th>Gender</th>
+    <th>Exhibition Date</th>
+    <th>ArtworkType</th>
+    <th>Special Notes</th>
+  </tr>
+  <tr *ngFor="let artist of artists; let i = index" >
+    <td class="table-primary">{{ artist.artistId }}</td>
+    <td>{{ artist.artistName }}</td>
+    <td>{{artist.DOB}}</td>
+    <td>{{artist.gender}}</td>
+    <td>{{artist.exhibitionDate}}</td>
+    <td>{{artist.artworkType}}</td>
+    <td>{{artist.specialNotes}}</td>
+    <td><button class="btn btn-warning button" type="button" (click)="updateArtist(i)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 
+      .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+      <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+    </svg></button></td>
+    <td><button type="button" class="btn btn-danger button" (click)="deleteArtist(i)">Delete</button></td>
+    
+
+  </tr>
+</table>
+</div>
+<div class = "tableDiv" *ngIf="showFeatured">
+  <h3>Featured Artists</h3>
+  <table class="table table-bordered border-dark">
+    <tr>
+      <th>ID#</th>
+      <th>Artist Name</th>
+      <th>DOB</th>
+      <th>Gender</th>
+      <th>Exhibition Date</th>
+      <th>ArtworkType</th>
+      <th>Special Notes</th>
+    </tr>
+    <tr *ngFor="let artist of featuredArtists; let i = index" >
+      <td class="table-primary">{{ artist.artistId }}</td>
+      <td>{{ artist.artistName }}</td>
+      <td>{{artist.DOB}}</td>
+      <td>{{artist.gender}}</td>
+      <td>{{artist.exhibitionDate}}</td>
+      <td>{{artist.artworkType}}</td>
+      <td>{{artist.specialNotes}}</td>
+      <td><button class="btn btn-warning button" type="button" (click)="updateArtist(i)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 
+        .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+      </svg></button></td>
+      <td><button type="button" class="btn btn-danger button" (click)="deleteArtist(i)">Delete</button></td>
+    </tr>
+  </table>
+  </div>
+
+<div class = "update-form" *ngIf="showUpdateForm">
+ 
+  <form [formGroup]="UpdatedArtistForm" id="form">
+    <h1>Update Artist</h1>
+  <label for="name">Name: </label>
+  <input id="name" type="text" formControlName="name">
+  <label for="DOB">DOB: </label>
+  <input id="DOB" type="date" formControlName="DOB"> <br>
+  <label for="gender"> Gender: </label>
+  <select id="gender" type="text" formControlName="gender">
+    <option>Male</option>
+    <option>Female</option>
+    <option>Unspecified</option>
+    </select> 
+    <label for = "Exhibition Date">Exhibition Date: </label>
+    <input id="exhibitionDate" type="date" formControlName="exhibitionDate"><br>
+    <label for = "ArtworkType">ArtworkType: </label>
+    <select id = "ArtworkType" formControlName="ArtworkType">
+    <option>Painting</option>
+    <option>Sculpture</option>
+    <option>Video Art</option>
+    <option>Digital Art</option>
+    <option>Photograph</option>
+    <option>Printmaking</option>
+    </select>
+    <label for="SpecialNotes">Special Notes: </label>
+    <input id="notes" type="text" formControlName="Notes"><br>
+    <label for="Featured">Featured</label>
+    <input id="featured" type="checkbox" formControlName="Featured"><br>
+    <div class="buttons">
+    <button class="btn btn-warning" type="button" (click)="update()">Update</button>
+    <button class="btn btn-danger" type="button" (click)="close()">Close</button>
+    </div>
+  </form>
+</div>
+<div class="delete-dialog-container">
+<div class="delete-dialog" *ngIf="showDialog">
+  <h1>Confirmation</h1>
+  <p>Are you sure you want to delete?</p>
+  <div class="buttons">
+  <button class="btn btn-success" (click)="confirmDelete(true)">Yes</button>
+  <button class="btn btn-danger" (click)="confirmDelete(false)">No</button>
+  </div>
+</div>
+</div>
+
+  <router-outlet></router-outlet>
+
+</body>
+</html>
+

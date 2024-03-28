@@ -1,0 +1,114 @@
+
+.add-form, .update-form{
+  max-width: 850px; 
+  margin: auto; 
+  display: flex;
+  justify-content: center;
+  text-align: center;
+
+}
+
+
+
+.add-form label, .update-form label {
+  display: block;
+  margin-bottom: 8px; 
+}
+
+.add-form input,
+.add-form select, .update-form input, .update-form, select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+}
+
+.error-message {
+  margin-top: 4px; 
+}
+
+.delete-dialog {
+    background-color: hsl(51, 47%, 55%);
+    width: 40%;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 4px hsla(0, 47%, 12%, 0.2);
+    text-align: center;
+  }
+
+  .delete-dialog-container{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+
+  #form{
+    border: none;
+    padding: 25px;
+    margin: 25px;   
+    width: 75%;
+    background-color: hsl(186, 50%, 50%);
+    color: aliceblue;
+    border-radius: 20px;
+    box-shadow: 2px 2px 4px hsla(0, 47%, 12%, 0.2);
+  }
+
+
+
+  #span{
+    color: hsl(210, 50%, 50%); 
+  }
+
+
+
+  .buttons{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  #search{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+
+  .tableDiv{
+  text-align: center;
+  border-color: black;
+  color: rgb(0, 0, 0);
+  }
+
+  .error{
+    text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    .add-form, .update-form {
+      max-width: 100%; 
+    }
+
+    .tableDiv{
+      font-size: 3dvw;
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    .delete-dialog{
+      font-size: 3dvw;
+      width: 100%;
+    }
+
+    .button{
+      font-size: 1.5dvw;
+    }
+
+    button{
+      font-size: 3dvw;
+    }
+
+    
+  }

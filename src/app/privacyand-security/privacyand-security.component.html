@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+          <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+            <span class="fs-4" id="span"><strong>Art Gallery App</strong></span>
+          </a>
+    
+          <ul class="nav nav-pills">
+            <li class="nav-item"><a routerLink="" class="nav-link" aria-current="page">Home</a></li>
+            <li class="nav-item"><a routerLink="/about"  class="nav-link">About</a></li>
+            <li class="nav-item"><a routerLink="/privacyand-security" routerLinkActive="active" aria-current="page" class="nav-link active">Privacy and Security</a></li>
+            <li class="nav-item"><a routerLink="/help-component" class="nav-link">Help</a></li>
+          </ul>
+        </header>
+      </div>
+      <router-outlet></router-outlet>
+      <header class="header">
+        <h1>Privacy and Security</h1>
+      </header>
+    
+      <section class="content">
+        <h2>Data Collection and Usage</h2>
+        <p>
+            Our application collects and uses artist data for the following purposes:<br>
+            - Displaying artist information within the application interface.<br>
+            - Allowing users to add, update, and delete artist entries.<br>
+            - Collected data includes artist names, biographies, and other relevant details.
+        </p>
+    
+        <h2>Data Protection</h2>
+        <p>
+            To ensure the security of user data, we implement the following measures:<br>
+            - Data Integrity: User input is validated to maintain data integrity and prevent unintended data corruption.<br>
+            - Authentication and Authorization: While not currently implemented, we are exploring options for managing user sessions and permissions within the application.<br>
+            - Data Backup: To mitigate the risk of data loss, we recommend users periodically back up their data using local storage or browser session storage.
+        </p>
+        <h3>Responsibilities of App Developers</h3>
+        <p>
+            As the developer of this Angular application, I am committed to safeguarding the privacy of our users. 
+            This responsibility extends to all aspects of data collection, usage, and protection within the app.
+        </p>
+    
+        <h3>Data Management</h3>
+<p>
+    We collect and temporarily store only the data necessary for the functionality of our app. 
+    Users are informed about how their data will be used, and we ensure that collected data is stored locally in the user's browser.
+    Data is retained only during the user's session, and it is automatically cleared when the user closes the web browser or navigates away from the app.
+    We respect user consent and do not store any data about third parties.
+</p>
+
+<h3>Securing Data</h3>
+<p>
+    Data security is a top priority for us, even without a backend or server-side storage. 
+    We implement robust security measures to protect user data within the app environment.
+    All data stored locally in the user's browser is subject to browser security protocols, ensuring that it is not accessible to unauthorized parties.
+    While no data is transmitted over the network or stored on external servers, we still ensure secure handling of user interactions within the app.
+</p>
+
+    </section>
+    
+      <footer>
+        <p>&copy; 2024 Art Gallery App. All rights reserved.</p>
+      </footer>
+    
+   
+</body>
+</html>
